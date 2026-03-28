@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha de Cadastro</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+<h1>Ficha de Cadastro</h1>
+
+<form id="form">
+<div class="step active">
+
+<h2>Dados Pessoais</h2>
+<input placeholder="Nome Completo" required>
+<input placeholder="Função">
+<input type="date">
+<select><option>Masculino</option><option>Feminino</option></select>
+<input placeholder="Estado Civil">
+<input placeholder="RG">
+<input placeholder="CPF">
+<input placeholder="Órgão Expedidor">
+
+<button type="button" onclick="next()">Próximo</button>
+</div>
+
+<div class="step">
+<h2>Contato</h2>
+<input placeholder="Telefone">
+<input placeholder="Celular">
+<input placeholder="E-mail">
+
+<h2>Endereço</h2>
+<input placeholder="Endereço">
+<input placeholder="Número">
+<input placeholder="Bairro">
+<input placeholder="Complemento">
+<input placeholder="CEP">
+<input placeholder="Cidade">
+<input placeholder="Estado">
+
+<button type="button" onclick="prev()">Voltar</button>
+<button type="button" onclick="next()">Próximo</button>
+</div>
+
+<div class="step">
+<h2>Ficha Médica</h2>
+<input placeholder="Cartão SUS">
+<select><option>Plano de Saúde - Não</option><option>Sim</option></select>
+<input placeholder="Tipo Sanguíneo">
+<select><option>RH Positivo</option><option>RH Negativo</option></select>
+
+<label>Diabetes</label>
+<select><option>Não</option><option>Sim</option></select>
+
+<label>Alergia</label>
+<select><option>Não</option><option>Sim</option></select>
+
+<textarea placeholder="Observações"></textarea>
+
+<button type="button" onclick="prev()">Voltar</button>
+<button type="submit">Enviar</button>
+</div>
+
+</form>
+
+<p id="msg"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

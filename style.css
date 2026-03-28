@@ -1,0 +1,36 @@
+body {
+font-family: Arial;
+background: linear-gradient(135deg,#1e3c72,#2a5298);
+color:white;
+display:flex;
+justify-content:center;
+}
+
+.container {
+width:90%;
+max-width:500px;
+background:#ffffff10;
+padding:20px;
+border-radius:15px;
+margin:20px;
+}
+
+.step {display:none;}
+.step.active {display:block;}
+
+input, select, textarea {
+width:100%;
+padding:10px;
+margin:5px 0;
+border-radius:8px;
+border:none;
+}
+
+button {
+width:100%;
+padding:10px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}

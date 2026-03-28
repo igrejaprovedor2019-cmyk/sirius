@@ -1,65 +1,93 @@
 const steps = Array.from(document.querySelectorAll(".form-step"));
 const nextBtns = document.querySelectorAll(".btn-next");
 const prevBtns = document.querySelectorAll(".btn-prev");
-const progressSteps = document.querySelectorAll(".step");
+const progressItems = document.querySelectorAll(".step-item");
+const progressBar = document.getElementById("progressBar");
 const form = document.getElementById("multiStepForm");
 
+// Avançar Etapa
 nextBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
-        const currentStep = document.querySelector(".form-step.active");
-        const inputs = currentStep.querySelectorAll("input[required]");
-        
-        // Validação simples de campos obrigatórios
-        let allValid = true;
-        inputs.forEach(input => {
-            if(!input.value) {
-                allValid = false;
-                input.style.borderColor = "red";
-            } else {
-                input.style.borderColor = "#ddd";
-            }
-        });
-
-        if (allValid) {
+        if (validateStep()) {
             changeStep(1);
-        } else {
-            alert("Por favor, preencha os campos obrigatórios.");
         }
     });
 });
 
+// Voltar Etapa
 prevBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
         changeStep(-1);
     });
 });
 
-function changeStep(cursor) {
-    let index = 0;
+function changeStep(direction) {
     const activeStep = document.querySelector(".form-step.active");
-    index = steps.indexOf(activeStep);
-    steps[index].classList.remove("active");
-    progressSteps[index].classList.remove("active");
+    let index = steps.indexOf(activeStep);
     
-    index += cursor;
+    steps[index].classList.remove("active");
+    progressItems[index].classList.remove("active");
+    
+    index += direction;
     
     steps[index].classList.add("active");
-    progressSteps[index].classList.add("active");
+    progressItems[index].classList.add("active");
+    
+    // Atualiza Barra de Progresso Visual
+    const progressPercent = (index / (steps.length - 1)) * 100;
+    progressBar.style.width = progressPercent + "%";
 }
 
-// Envio para WhatsApp
+function validateStep() {
+    const activeStep = document.querySelector(".form-step.active");
+    const inputs = activeStep.querySelectorAll("input[required]");
+    let valid = true;
+    
+    inputs.forEach(input => {
+        if (!input.value.trim()) {
+            valid = false;
+            input.style.borderColor = "#ff4d4d";
+        } else {
+            input.style.borderColor = "#ddd";
+        }
+    });
+    
+    if (!valid) alert("Por favor, preencha todos os campos obrigatórios marcados com *");
+    return valid;
+}
+
+// ENVIO PARA WHATSAPP
 form.addEventListener("submit", (e) => {
     e.preventDefault();
+    
     const formData = new FormData(form);
-    let message = "📋 *NOVA FICHA DE CADASTRO*\n\n";
+    let message = "📋 *NOVO CADASTRO RECEBIDO*\n\n";
+    let hasFiles = false;
 
-    for (let [key, value] of formData.entries()) {
-        if(value) message += `*${key.toUpperCase()}:* ${value}\n`;
+    formData.forEach((value, key) => {
+        // Verifica se é arquivo
+        if (value instanceof File && value.name) {
+            hasFiles = true;
+            message += `✅ *${key}:* Foto anexada no formulário\n`;
+        } else if (value && typeof value === 'string') {
+            message += `*${key}:* ${value}\n`;
+        }
+    });
+
+    if(hasFiles) {
+        message += "\n⚠️ *Nota:* O usuário tirou fotos (RG/SUS). Solicite o envio das imagens caso elas não apareçam abaixo.";
     }
 
-    const phone = "559291404115";
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+    const phoneNumber = "559291404115";
+    const finalUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
 
-    window.open(whatsappUrl, "_blank");
+    // Feedback no botão
+    const submitBtn = document.querySelector(".btn-submit");
+    submitBtn.innerHTML = "ABRINDO WHATSAPP...";
+    submitBtn.style.background = "#128C7E";
+
+    // Pequeno delay para efeito visual e garantir que o navegador processe
+    setTimeout(() => {
+        window.location.href = finalUrl;
+    }, 800);
 });

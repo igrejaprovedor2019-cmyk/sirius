@@ -1,73 +1,207 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ficha de Cadastro</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Cadastro Profissional</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
 <div class="container">
-<h1>Ficha de Cadastro</h1>
+    <header>
+        <img src="https://via.placeholder.com/100/003366/FFFFFF?text=LOGO" alt="Logo">
+        <h1>Ficha de Cadastro e Prontuário</h1>
+        <p>Preencha as informações com atenção.</p>
+    </header>
 
-<form id="form">
-<div class="step active">
+    <div class="progress-bar">
+        <div class="step active" data-title="Pessoal">1</div>
+        <div class="step" data-title="Contato">2</div>
+        <div class="step" data-title="Saúde">3</div>
+        <div class="step" data-title="Histórico">4</div>
+        <div class="step" data-title="Final">5</div>
+    </div>
 
-<h2>Dados Pessoais</h2>
-<input placeholder="Nome Completo" required>
-<input placeholder="Função">
-<input type="date">
-<select><option>Masculino</option><option>Feminino</option></select>
-<input placeholder="Estado Civil">
-<input placeholder="RG">
-<input placeholder="CPF">
-<input placeholder="Órgão Expedidor">
+    <form id="multiStepForm">
+        <div class="form-step active">
+            <h2><i class="fas fa-user"></i> Dados Pessoais</h2>
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Nome Completo *</label>
+                    <input type="text" name="nome" required>
+                </div>
+                <div class="input-group">
+                    <label>Função</label>
+                    <input type="text" name="funcao">
+                </div>
+            </div>
+            <div class="grid-3">
+                <div class="input-group">
+                    <label>Data de Nascimento</label>
+                    <input type="date" name="nascimento">
+                </div>
+                <div class="input-group">
+                    <label>Sexo</label>
+                    <select name="sexo">
+                        <option value="Feminino">Feminino</option>
+                        <option value="Masculino">Masculino</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Estado Civil</label>
+                    <input type="text" name="estado_civil">
+                </div>
+            </div>
+            <div class="grid-3">
+                <div class="input-group">
+                    <label>RG</label>
+                    <input type="text" name="rg">
+                </div>
+                <div class="input-group">
+                    <label>CPF *</label>
+                    <input type="text" name="cpf" placeholder="000.000.000-00" required>
+                </div>
+                <div class="input-group">
+                    <label>Órgão Expedidor</label>
+                    <input type="text" name="orgao">
+                </div>
+            </div>
 
-<button type="button" onclick="next()">Próximo</button>
-</div>
+            <hr>
+            <h2><i class="fas fa-users"></i> Responsáveis (Se menor)</h2>
+            <div class="grid-2">
+                <div class="input-group"><label>Nome do Pai</label><input type="text" name="pai_nome"></div>
+                <div class="input-group"><label>Tel do Pai</label><input type="tel" name="pai_tel"></div>
+                <div class="input-group"><label>Nome da Mãe</label><input type="text" name="mae_nome"></div>
+                <div class="input-group"><label>Tel da Mãe</label><input type="tel" name="mae_tel"></div>
+            </div>
+            
+            <div class="btn-group">
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+        </div>
 
-<div class="step">
-<h2>Contato</h2>
-<input placeholder="Telefone">
-<input placeholder="Celular">
-<input placeholder="E-mail">
+        <div class="form-step">
+            <h2><i class="fas fa-map-marker-alt"></i> Endereço e Contato</h2>
+            <div class="grid-2">
+                <div class="input-group"><label>E-mail</label><input type="email" name="email"></div>
+                <div class="input-group"><label>Celular</label><input type="tel" name="celular"></div>
+            </div>
+            <div class="grid-3">
+                <div class="input-group" style="grid-column: span 2;"><label>Endereço</label><input type="text" name="rua"></div>
+                <div class="input-group"><label>Número</label><input type="text" name="numero"></div>
+            </div>
+            <div class="grid-3">
+                <div class="input-group"><label>Bairro</label><input type="text" name="bairro"></div>
+                <div class="input-group"><label>Cidade</label><input type="text" name="cidade"></div>
+                <div class="input-group"><label>CEP</label><input type="text" name="cep"></div>
+            </div>
 
-<h2>Endereço</h2>
-<input placeholder="Endereço">
-<input placeholder="Número">
-<input placeholder="Bairro">
-<input placeholder="Complemento">
-<input placeholder="CEP">
-<input placeholder="Cidade">
-<input placeholder="Estado">
+            <hr>
+            <h2><i class="fas fa-graduation-cap"></i> Escolaridade</h2>
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Nível</label>
+                    <select name="escolaridade_nivel">
+                        <option>Fundamental</option>
+                        <option>Médio</option>
+                        <option>Superior</option>
+                        <option>Pós/Mestrado/Doutorado</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Área de Conhecimento</label>
+                    <input type="text" name="area_conhecimento">
+                </div>
+            </div>
 
-<button type="button" onclick="prev()">Voltar</button>
-<button type="button" onclick="next()">Próximo</button>
-</div>
+            <div class="btn-group">
+                <button type="button" class="btn-prev">Voltar</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+        </div>
 
-<div class="step">
-<h2>Ficha Médica</h2>
-<input placeholder="Cartão SUS">
-<select><option>Plano de Saúde - Não</option><option>Sim</option></select>
-<input placeholder="Tipo Sanguíneo">
-<select><option>RH Positivo</option><option>RH Negativo</option></select>
+        <div class="form-step">
+            <h2><i class="fas fa-heartbeat"></i> Ficha Médica</h2>
+            <div class="grid-3">
+                <div class="input-group"><label>Cartão SUS</label><input type="text" name="sus"></div>
+                <div class="input-group"><label>Tipagem Sanguínea</label><input type="text" name="sangue"></div>
+                <div class="input-group">
+                    <label>Fator RH</label>
+                    <select name="rh"><option>Positivo</option><option>Negativo</option></select>
+                </div>
+            </div>
+            
+            <h3>Doenças já contraídas:</h3>
+            <div class="checkbox-grid">
+                <label><input type="checkbox" name="doencas" value="Catapora"> Catapora</label>
+                <label><input type="checkbox" name="doencas" value="Dengue"> Dengue</label>
+                <label><input type="checkbox" name="doencas" value="Hepatite"> Hepatite</label>
+                <label><input type="checkbox" name="doencas" value="Covid"> Covid-19</label>
+                <label><input type="checkbox" name="doencas" value="Sarampo"> Sarampo</label>
+                <label><input type="checkbox" name="doencas" value="Tétano"> Tétano</label>
+            </div>
 
-<label>Diabetes</label>
-<select><option>Não</option><option>Sim</option></select>
+            <div class="btn-group">
+                <button type="button" class="btn-prev">Voltar</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+        </div>
 
-<label>Alergia</label>
-<select><option>Não</option><option>Sim</option></select>
+        <div class="form-step">
+            <h2><i class="fas fa-pills"></i> Condições e Alergias</h2>
+            <div class="grid-2">
+                <div class="input-group">
+                    <label>Problemas Cardíacos?</label>
+                    <select name="cardiaco"><option>Não</option><option>Sim</option></select>
+                </div>
+                <div class="input-group">
+                    <label>Diabetes?</label>
+                    <select name="diabetes"><option>Não</option><option>Sim</option></select>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Uso contínuo de medicamentos? Quais?</label>
+                <textarea name="medicamentos" rows="2"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Alergias (Alimentar, Medicamentos, Pele):</label>
+                <textarea name="alergias" rows="2"></textarea>
+            </div>
 
-<textarea placeholder="Observações"></textarea>
+            <div class="btn-group">
+                <button type="button" class="btn-prev">Voltar</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+        </div>
 
-<button type="button" onclick="prev()">Voltar</button>
-<button type="submit">Enviar</button>
-</div>
+        <div class="form-step">
+            <h2><i class="fas fa-check-circle"></i> Finalização</h2>
+            <div class="input-group">
+                <label>Possui Deficiência ou Condição Especial?</label>
+                <input type="text" name="deficiencia" placeholder="Especifique ou escreva 'Não'">
+            </div>
+            <div class="input-group">
+                <label>Local e Data</label>
+                <input type="text" name="local_data" placeholder="Manaus, 28/03/2026">
+            </div>
+            <div class="input-group">
+                <label>Assinatura do Responsável (Nome Completo)</label>
+                <input type="text" name="assinatura">
+            </div>
 
-</form>
+            <div class="declaration">
+                <p>Declaro que todas as informações fornecidas nesta ficha são verdadeiras.</p>
+            </div>
 
-<p id="msg"></p>
+            <div class="btn-group">
+                <button type="button" class="btn-prev">Voltar</button>
+                <button type="submit" class="btn-submit">Enviar via WhatsApp</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <script src="script.js"></script>
